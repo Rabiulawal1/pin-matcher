@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="generatdisplay" class="form-control" type="text">
+                    <button id="generateBtn"class="generate-btn">Generate Pin</button>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="calculatorDisplay" class="form-control" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div id="seven" class="button">7</div>
+                              <div id="eight" class="button">8</div>
+                              <div id="nine" class="button">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div id="four" class="button">4</div>
+                              <div id="five" class="button">5</div>
+                              <div id="six" class="button">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div id="one" class="button">1</div>
+                              <div id="two" class="button">2</div>
+                              <div id="three" class="button">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div id="del" class="button">></div>
+                                <div id="zero" class="button">0</div>
+                                <div id="clear" class="button">C</div>
+                            </div>
+                            <div>
+                                <button id="submit" type="submit" class="submit-btn">Submit</button>
+                                <p class="action-left"> <span id="count">3</span> try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="donotMatch" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id = match class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+
+
+    <script>
+
+        document.getElementById("match").style.display = "none";
+        document.getElementById("donotMatch").style.display = "none";
+       
+
+
+        let generateButton = document.getElementById("generateBtn");
+        generateButton.addEventListener("click", function(){
+            let generateDisplay = document.getElementById("generatdisplay").value;
+            let generatNum = (Math.random() * 9000 ) + 1000;
+            let generatNumber = generatNum.toFixed(0);
+
+            document.getElementById("generatdisplay").value = generatNumber;
+        })
+        calculatorNumber("seven",7);
+        calculatorNumber("eight",8);
+        calculatorNumber("nine",9);
+        calculatorNumber("four",4);
+        calculatorNumber("five",5);
+        calculatorNumber("six",6);
+        calculatorNumber("one",1);
+        calculatorNumber("two",2);
+        calculatorNumber("three",3);
+        calculatorNumber("zero",0);
+
+        document.getElementById("clear").addEventListener("click",function(){
+            buttonClear = document.getElementById("calculatorDisplay");
+            buttonClear.value = "";
+            document.getElementById("match").style.display = "none";
+            document.getElementById("donotMatch").style.display = "none";
+
+            
+        })
+
+        document.getElementById("del").addEventListener("click",function(){
+            buttonDel = document.getElementById("calculatorDisplay");
+            buttonDel.value = buttonDel.value.slice(0,-1);
+            document.getElementById("match").style.display = "none";
+            document.getElementById("donotMatch").style.display = "none";
+
+           
+        })
+
+        document.getElementById("submit").addEventListener("click",function(){
+
+            let x = document.getElementById("generatdisplay").value;
+            let y = buttonNumber.value;
+            
+
+            if(x === y){
+                document.getElementById("match").style.display = "block";
+            }
+            else{
+                document.getElementById("donotMatch").style.display = "block";
+                let countNumber = document.getElementById("count").innerText;
+                let numberCount = countNumber - 1;
+                document.getElementById("count").innerText = numberCount;
+                if(numberCount == 0){
+                    document.getElementById("submit").style.display = "none";
+
+                }
+
+
+            }
+            
+
+        })      
+
+        // let Seven = document.getElementById("seven");
+        // Seven.addEventListener("click",function(){
+        //     buttonSeven = document.getElementById("calculatorDisplay");
+        //     buttonSeven.value += number;
+        // })
+
+    function calculatorNumber(id,number){
+        document.getElementById(id).addEventListener("click",function(){
+            buttonNumber = document.getElementById("calculatorDisplay");
+            buttonNumber.value += number;
+
+        })
+    }
+
+    
+        
+
+
+
+
+    </script>
+</body>
+</html>
